@@ -10,4 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Customer {
+    private int cid; // PK
+    private String custpwd;
+    private String cname;
+    private String email;
+    private String phone_num;
+    private String nick_name;
 }

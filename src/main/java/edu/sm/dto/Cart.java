@@ -6,9 +6,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Cart {
+    private int cartKey;
+    private int cid;
+    private int pid;
+    private int cnt;
+    private Date cdate;
 }
+
