@@ -23,22 +23,75 @@ public class CustomerService implements MService<Integer, Customer> {
     @Override
     public Customer add(Customer customer) throws Exception {
         Connection conn = cp.getConnection();
-        conn.setAutoCommit(false);
+        try {
+            conn.setAutoCommit(false);
+            dao.insert(customer, conn);
+            conn.commit();
+            System.out.println("Customer Service add 실행됨");
+        } catch(Exception e) {
+            conn.rollback();
+            throw e;
+        } finally {
+            cp.releaseConnection(conn);
+        }
+
         return customer;
     }
 
     @Override
     public Customer modify(Customer customer) throws Exception {
-        return null;
+        Connection conn = cp.getConnection();
+        try {
+            dao.update(customer, conn);
+            System.out.println("Customer Service modify 실행됨");
+        } catch(Exception e) {
+            throw e;
+        } finally {
+            cp.releaseConnection(conn);
+        }
+        return customer;
     }
 
     @Override
-    public Boolean remove(Integer integer) throws Exception {
-        return null;
+    public Boolean remove(Integer i) throws Exception {
+        Connection conn = cp.getConnection();
+        Boolean result = false;
+        try {
+            result = dao.delete(i, conn);
+            System.out.println("Customer Service remove 실행됨");
+        } catch(Exception e) {
+            throw e;
+        } finally {
+            cp.releaseConnection(conn);
+        }
+        return result;
     }
 
     @Override
-    public Customer get(Integer integer) throws Exception {
-        return null;
+    public Customer get(Integer i) throws Exception {
+        Connection conn = cp.getConnection();
+        Customer customer = null;
+        try {
+            customer = dao.select(i, conn);
+            System.out.println("Customer Service get 실행됨");
+        } catch(Exception e) {
+            throw e;
+        } finally {
+            cp.releaseConnection(conn);
+        }
+        return customer;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

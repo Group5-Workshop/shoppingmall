@@ -15,5 +15,7 @@ public class Customer {
     private String cname;
     private String email;
     private String phone_num;
+    private int birth_day;
     private String nick_name;
+    private int grade;
 }
