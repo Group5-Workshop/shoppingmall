@@ -41,19 +41,7 @@ public class OrderDao implements Dao<Integer, Order> {
 
     @Override
     public boolean delete(Integer oid, Connection conn) throws Exception {
-        PreparedStatement ps = null;
-        boolean flag = false;
-        try {
-            ps = conn.prepareStatement(Sql.DELETE_ORDERS);
-            ps.setInt(1, oid);
-            int result = ps.executeUpdate();
-            if (result == 1) flag = true;
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (ps != null) ps.close();
-        }
-        return flag;
+        throw new UnsupportedOperationException("주문은 삭제할 수 없습니다.");
     }
 
     @Override

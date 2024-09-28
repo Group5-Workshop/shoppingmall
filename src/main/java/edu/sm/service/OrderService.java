@@ -46,17 +46,7 @@ public class OrderService implements MService<Integer, Order> {
 
     @Override
     public Boolean remove(Integer oid) throws Exception {
-        Connection conn = cp.getConnection();
-        Boolean result = false;
-        try {
-            result = dao.delete(oid, conn);
-            System.out.println("OrderService remove() 실행됨");
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-        return result;
+        throw new UnsupportedOperationException("주문은 삭제할 수 없습니다.");
     }
 
     @Override
