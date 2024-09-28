@@ -48,7 +48,7 @@ public class Sql {
     public static final String SELECT_DELIVERED_ORDERS =
             "SELECT oid, oname, item_name, odate FROM orders WHERE ostatus = '배송 완료'";
 
-    // 회원 관리
+    // 회원
     public static final String INSERT_CUSTOMER =
             "INSERT INTO customer (pwd, cname, email, phone, birth_date, nick_name, join_date) VALUES (?, ?, ?, ?, ?,  ?, CURRENT_TIMESTAMP)";
     public static final String SELECT_ALL_CUSTOMERS =
@@ -58,10 +58,13 @@ public class Sql {
     public static final String DELETE_CUSTOMER =
             "DELETE FROM customer WHERE cid=?";
     public static final String SELECT_CUSTOMER_BY_NAME =
-            "SELECT cid, cname, email, phone, birth_date, nick_name, grade FROM customer WHERE cname LIKE ?";
+            "SELECT cid, cname, email, phone, birth_date, nick_name, grade, join_date FROM customer WHERE cname LIKE ?";
     public static final String SELECT_CUSTOMER_BY_ID =
-            "SELECT cid, cname, email, phone, birth_date, nick_name, grade FROM customer WHERE cid = ?";
-
+            "SELECT cid, cname, email, phone, birth_date, nick_name, grade, join_date FROM customer WHERE cid = ?";
+    public static final String SELECT_CUSTOMER_ALL=
+            "SELECT cid, cname, email, phone, birth_date, nick_name, grade, join_date FROM customer";
+    public static final String SELECT_CUSTOMER_EMAIL=
+            "SELECT * FROM customer WHERE email = ?";
 
     // 접속 통계
     public static final String SELECT_HOURLY_ACCESS_STATS =

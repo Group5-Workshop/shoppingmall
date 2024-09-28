@@ -7,4 +7,5 @@ public interface MService<K, V> {
     V modify(V v) throws Exception;
     Boolean remove(K k) throws Exception;
     V get(K k) throws Exception;
+    List<V> get() throws Exception;
 }
