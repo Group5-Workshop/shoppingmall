@@ -150,4 +150,17 @@ public class Sql {
             "UPDATE address SET aname = ?, address = ?, address_detail = ?, zip_code = ?, phone = ? WHERE aid = ?";
     public static final String DELETE_ADDRESS =
             "DELETE FROM address WHERE aid = ?";
+
+    // 할인
+    public static final String INSERT_DISCOUNT =
+            "INSERT INTO discount (dis_name, dis_rate, dis_start, dis_end) VALUES (?, ?, ?, ?)";
+    public static final String UPDATE_DISCOUNT =
+            "UPDATE discount SET dis_name = ?, dis_rate = ?, dis_start = ?, dis_end = ? WHERE dis_id = ?";
+    public static final String DELETE_DISCOUNT =
+            "DELETE FROM discount WHERE dis_id = ?";
+    public static final String SELECT_DISCOUNT_BY_ID =
+            "SELECT * FROM discount WHERE dis_id = ?";
+    public static final String SELECT_ALL_DISCOUNTS =
+            "SELECT * FROM discount";
+
 }
