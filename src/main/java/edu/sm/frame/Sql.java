@@ -56,8 +56,6 @@ public class Sql {
     // 회원
     public static final String INSERT_CUSTOMER =
             "INSERT INTO customer (pwd, cname, email, phone, birth_date, nick_name, join_date) VALUES (?, ?, ?, ?, ?,  ?, CURRENT_TIMESTAMP)";
-    public static final String SELECT_ALL_CUSTOMERS =
-            "SELECT c.cid, c.cname, c.email, c.birth_date, COUNT(o.oid) AS 주문수, c.grade FROM customer c LEFT JOIN orders o ON c.cid = o.cid GROUP BY c.cid";
     public static final String UPDATE_CUSTOMER =
             "UPDATE customer SET cname=?, email=?, phone=?, nick_name=? WHERE cid=?";
     public static final String DELETE_CUSTOMER =
@@ -110,9 +108,34 @@ public class Sql {
             "DELETE FROM category WHERE category_id=?";
 
     // 결제 관련
+    public static final String INSERT_PAY =
+            "INSERT INTO pay (oid, pay_price, pay_method, card) VALUES (?, ?, ?, ?)";
+    public static final String UPDATE_PAY =
+            "UPDATE pay SET pay_price = ?, pay_method = ?, card = ? WHERE pay_id = ?";
+    public static final String DELETE_PAY =
+            "DELETE FROM pay WHERE pay_id = ?";
+    public static final String SELECT_PAY_BY_ID =
+            "SELECT * FROM pay WHERE pay_id = ?";
+    public static final String SELECT_ALL_PAY =
+            "SELECT * FROM pay";
+    public static final String SELECT_PAY_BY_ORDER_ID =
+            "SELECT * FROM pay WHERE oid = ?";
     public static final String SELECT_ALL_PAYMENTS =
             "SELECT * FROM pay";
     public static final String SELECT_PAYMENT_INFO =
             "SELECT p.oid, p.pay_price, p.pay_method, p.card, p.pay_date FROM pay p JOIN orders o ON p.oid = o.oid WHERE o.cid = ?";
+
+    // OrderDetiall 관련
+    public static final String INSERT_ORDER_DETAIL =
+            "INSERT INTO order_detail (pid, oid, item_cnt, od_price) VALUES (?, ?, ?, ?)";
+    public static final String SELECT_ORDER_DETAIL_BY_ID =
+            "SELECT * FROM order_detail WHERE order_detail_id = ?";
+    public static final String SELECT_ALL_ORDER_DETAILS =
+            "SELECT * FROM order_detail";
+    // 특정 주문에 대한 주문 상세 목록을 조회하는 SQL (상품 이름 포함)
+    public static final String SELECT_ORDER_DETAILS_BY_OID =
+            "SELECT od.order_detail_id, od.oid, od.pid, od.item_cnt, od.od_price, p.pname " +
+                    "FROM order_detail od " +
+                    "JOIN product p ON od.pid = p.pid WHERE od.oid = ?";
 
 }
