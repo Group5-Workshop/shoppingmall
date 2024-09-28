@@ -130,4 +130,18 @@ public class Sql {
                     "FROM order_detail od " +
                     "JOIN product p ON od.pid = p.pid WHERE od.oid = ?";
 
+    // 주소
+    public static final String INSERT_ADDRESS =
+            "INSERT INTO address (cid, aname, address, address_detail, zip_code, phone) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
+    public static final String SELECT_ALL_ADDRESSES =
+            "SELECT * FROM address";
+    public static final String SELECT_ADDRESSES_BY_CID =
+            "SELECT * FROM address WHERE cid = ?";
+    public static final String SELECT_ADDRESS_BY_ID =
+            "SELECT * FROM address WHERE aid = ?";
+    public static final String UPDATE_ADDRESS =
+            "UPDATE address SET aname = ?, address = ?, address_detail = ?, zip_code = ?, phone = ? WHERE aid = ?";
+    public static final String DELETE_ADDRESS =
+            "DELETE FROM address WHERE aid = ?";
 }
