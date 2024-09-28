@@ -4,15 +4,20 @@ public class Sql {
 
     // 리뷰 관리
     public static final String INSERT_REVIEW =
-            "INSERT INTO review (pid, cid, rate, title, content, img, rdate) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            "INSERT INTO review (pid, cid, rate, title, content, img) VALUES (?, ?, ?, ?, ?, ?)";
     public static final String UPDATE_REVIEW =
-            "UPDATE review SET pid=?, cid=?, rate=?, title=?, content=?, img=?, rdate=? WHERE rid=?";
+            "UPDATE review SET pid=?, cid=?, rate=?, title=?, content=?, img=? WHERE rid=?";
     public static final String DELETE_REVIEW =
             "DELETE FROM review WHERE rid=?";
     public static final String SELECT_ONE_REVIEW =
             "SELECT * FROM review WHERE rid=?";
     public static final String SELECT_ALL_REVIEWS =
             "SELECT * FROM review";
+    public static final String SELECT_REVIEWS_BY_PRODUCT_ID =
+            "SELECT * FROM review WHERE pid = ?";
+    public static final String CHECK_DUPLICATE_REVIEW =
+            "SELECT COUNT(*) FROM review WHERE cid = ? AND pid = ?";
+
 
     // 상품
     public static final String SELECT_ALL_PRODUCTS =
@@ -29,6 +34,7 @@ public class Sql {
             "UPDATE product SET is_public = 0 WHERE pid = ?";
     public static final String SELECT_ONE_PRODUCT =
             "SELECT * FROM product WHERE pid = ? AND is_public = 1";
+
 
     // 주문
     // 주문 추가
