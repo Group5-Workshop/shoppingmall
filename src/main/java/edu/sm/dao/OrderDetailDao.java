@@ -15,12 +15,25 @@ public class OrderDetailDao implements Dao<Integer, OrderDetail> {
     @Override
     public OrderDetail insert(OrderDetail orderDetail, Connection conn) throws Exception {
         PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
+            // 상품 가격 조회 SQL
+            String selectPriceSql = "SELECT price FROM product WHERE pid = ?";
+            ps = conn.prepareStatement(selectPriceSql);
+            ps.setInt(1, orderDetail.getPid());
+            rs = ps.executeQuery();
+            int productPrice = 0;
+            if (rs.next()) {
+                productPrice = rs.getInt("price");
+            }
+            int odPrice = productPrice * orderDetail.getItemCnt();
+
+            // order_detail insert SQL
             ps = conn.prepareStatement(Sql.INSERT_ORDER_DETAIL);
             ps.setInt(1, orderDetail.getPid());  // 상품 ID
             ps.setInt(2, orderDetail.getOid());  // 주문 ID
             ps.setInt(3, orderDetail.getItemCnt());  // 상품 개수
-            ps.setInt(4, orderDetail.getOdPrice());  // 상품 가격
+            ps.setInt(4, odPrice);  // 상품 가격
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

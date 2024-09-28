@@ -36,8 +36,8 @@ public class Sql {
     public static final String SELECT_ALL_ORDERS =
             "SELECT * FROM orders";
     public static final String INSERT_ORDERS =
-            "INSERT INTO orders (cid, oname, address, address_detail, zip_code, phone, msg) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            "INSERT INTO orders (cid, oname, address, address_detail, zip_code, phone, msg, price) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     public static final String DELETE_ORDERS =
             "DELETE FROM orders WHERE oid = ?";
     // 특정 주문 조회
@@ -110,20 +110,12 @@ public class Sql {
     // 결제 관련
     public static final String INSERT_PAY =
             "INSERT INTO pay (oid, pay_price, pay_method, card) VALUES (?, ?, ?, ?)";
-    public static final String UPDATE_PAY =
-            "UPDATE pay SET pay_price = ?, pay_method = ?, card = ? WHERE pay_id = ?";
-    public static final String DELETE_PAY =
-            "DELETE FROM pay WHERE pay_id = ?";
     public static final String SELECT_PAY_BY_ID =
             "SELECT * FROM pay WHERE pay_id = ?";
     public static final String SELECT_ALL_PAY =
             "SELECT * FROM pay";
     public static final String SELECT_PAY_BY_ORDER_ID =
             "SELECT * FROM pay WHERE oid = ?";
-    public static final String SELECT_ALL_PAYMENTS =
-            "SELECT * FROM pay";
-    public static final String SELECT_PAYMENT_INFO =
-            "SELECT p.oid, p.pay_price, p.pay_method, p.card, p.pay_date FROM pay p JOIN orders o ON p.oid = o.oid WHERE o.cid = ?";
 
     // OrderDetiall 관련
     public static final String INSERT_ORDER_DETAIL =

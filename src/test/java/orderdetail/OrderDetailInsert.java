@@ -11,7 +11,6 @@ public class OrderDetailInsert {
                 .pid(5)
                 .oid(1)
                 .itemCnt(2)
-                .odPrice(50000)
                 .build();
 
         try {
