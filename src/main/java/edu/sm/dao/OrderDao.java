@@ -24,6 +24,7 @@ public class OrderDao implements Dao<Integer, Order> {
             ps.setString(5, order.getZipCode());
             ps.setString(6, order.getPhone());
             ps.setString(7, order.getMsg());
+            ps.setInt(8, order.getPrice());  // price 추가
             ps.executeUpdate();
         } catch (Exception e) {
             throw e;
@@ -35,7 +36,7 @@ public class OrderDao implements Dao<Integer, Order> {
 
     @Override
     public Order update(Order order, Connection conn) throws Exception {
-        throw new UnsupportedOperationException("주문 삭제 후 다시 주문부탁");
+        throw new UnsupportedOperationException("주문 삭제 후 다시 주문 부탁드립니다.");
     }
 
     @Override
@@ -75,7 +76,8 @@ public class OrderDao implements Dao<Integer, Order> {
                         rs.getString("zip_code"),
                         rs.getString("phone"),
                         rs.getString("msg"),
-                        rs.getTimestamp("odate")
+                        rs.getTimestamp("odate"),
+                        rs.getInt("price")  // price 추가
                 );
             }
         } catch (Exception e) {
@@ -106,7 +108,8 @@ public class OrderDao implements Dao<Integer, Order> {
                         rs.getString("zip_code"),
                         rs.getString("phone"),
                         rs.getString("msg"),
-                        rs.getTimestamp("odate")
+                        rs.getTimestamp("odate"),
+                        rs.getInt("price")  // price 추가
                 ));
             }
         } catch (Exception e) {
@@ -117,6 +120,8 @@ public class OrderDao implements Dao<Integer, Order> {
         }
         return orders;
     }
+
+    // 주문 상태별 조회 메서드
     public List<Order> selectOrdersByStatus(String status, Connection conn) throws Exception {
         List<Order> orders = new ArrayList<>();
         PreparedStatement ps = null;
@@ -126,11 +131,19 @@ public class OrderDao implements Dao<Integer, Order> {
             ps.setString(1, status); // 상태를 파라미터로 설정
             rs = ps.executeQuery();
             while (rs.next()) {
-                Order order = new Order();
-                order.setOid(rs.getInt("oid"));
-                order.setOname(rs.getString("oname"));
-                order.setOdate(rs.getTimestamp("odate"));
-                orders.add(order);
+                orders.add(new Order(
+                        rs.getInt("oid"),
+                        rs.getInt("cid"),
+                        rs.getString("ostatus"),
+                        rs.getString("oname"),
+                        rs.getString("address"),
+                        rs.getString("address_detail"),
+                        rs.getString("zip_code"),
+                        rs.getString("phone"),
+                        rs.getString("msg"),
+                        rs.getTimestamp("odate"),
+                        rs.getInt("price")  // price 추가
+                ));
             }
         } catch (Exception e) {
             throw e;
@@ -141,6 +154,7 @@ public class OrderDao implements Dao<Integer, Order> {
         return orders;
     }
 
+    // 주문 상태 업데이트 메서드
     public void updateOrderStatus(int oid, String status, Connection conn) throws Exception {
         PreparedStatement ps = null;
         try {
@@ -175,7 +189,8 @@ public class OrderDao implements Dao<Integer, Order> {
                         rs.getString("zip_code"),
                         rs.getString("phone"),
                         rs.getString("msg"),
-                        rs.getTimestamp("odate")
+                        rs.getTimestamp("odate"),
+                        rs.getInt("price")  // price 추가
                 ));
             }
         } catch (Exception e) {

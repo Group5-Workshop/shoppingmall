@@ -15,6 +15,7 @@ public class OrderInsert {
                     .zipCode("123456")
                     .phone("01012345678")
                     .msg("문 앞에 두고 가주세요")
+                    .price(50000)
                     .build();
 
             orderService.add(order);

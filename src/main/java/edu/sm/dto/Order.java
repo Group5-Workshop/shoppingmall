@@ -22,4 +22,5 @@ public class Order {
     private String phone;
     private String msg;
     private Timestamp odate;
+    private int price;
 }

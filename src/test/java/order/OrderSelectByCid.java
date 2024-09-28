@@ -29,6 +29,7 @@ public class OrderSelectByCid {
                     System.out.println("전화번호: " + order.getPhone());
                     System.out.println("요청 사항: " + order.getMsg());
                     System.out.println("주문 날짜: " + order.getOdate());
+                    System.out.println("금액:" + order.getPrice());
                     System.out.println("====================================\n");
                 }
             } else {

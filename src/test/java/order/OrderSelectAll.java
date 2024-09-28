@@ -10,10 +10,8 @@ public class OrderSelectAll {
         OrderService orderService = new OrderService();
 
         try {
-            // 모든 주문 조회
             List<Order> orders = orderService.get();
 
-            // 예쁘게 출력
             for (Order order : orders) {
                 System.out.print("주문 ID: " + order.getOid() + ", ");
                 System.out.print("고객 ID: " + order.getCid() + ", ");
@@ -25,6 +23,7 @@ public class OrderSelectAll {
                 System.out.print("전화번호: " + order.getPhone() + ", ");
                 System.out.print("메시지: " + order.getMsg() + ", ");
                 System.out.println("주문 날짜: " + order.getOdate());
+                System.out.println("금액: " + order.getPrice());
             }
         } catch (Exception e) {
             e.printStackTrace();
