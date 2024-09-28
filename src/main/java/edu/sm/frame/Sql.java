@@ -14,7 +14,7 @@ public class Sql {
     public static final String SELECT_ALL_REVIEWS =
             "SELECT * FROM review";
 
-    // 상품 관리
+    // 상품
     public static final String SELECT_ALL_PRODUCTS =
             "SELECT pid, pname, price, cnt, pdate FROM product WHERE pname LIKE ? OR category_id = ? ORDER BY pdate DESC LIMIT ? OFFSET ?";
     public static final String UPDATE_PRODUCT =
@@ -30,23 +30,28 @@ public class Sql {
     public static final String SELECT_ONE_PRODUCT =
             "SELECT * FROM product WHERE pid = ? AND is_public = 1";
 
-    // 주문 관리
+    // 주문
+    // 주문 추가
+    // 모든 주문 조회
     public static final String SELECT_ALL_ORDERS =
-            "SELECT o.oid, c.cname, o.item_name, o.odate, o.ostatus FROM orders o JOIN customer c ON o.cid = c.cid";
-    public static final String SELECT_PENDING_ORDERS =
-            "SELECT oid, oname, item_name, odate FROM orders WHERE ostatus = '입금대기'";
-    public static final String UPDATE_ORDER_STATUS_TO_PAID =
-            "UPDATE orders SET ostatus = '입금완료' WHERE oid = ?";
-    public static final String SELECT_PAID_ORDERS =
-            "SELECT oid, oname, item_name, odate FROM orders WHERE ostatus = '입금완료'";
-    public static final String UPDATE_ORDER_STATUS_TO_SHIPPING =
-            "UPDATE orders SET ostatus = '배송 중' WHERE oid = ?";
-    public static final String SELECT_SHIPPING_ORDERS =
-            "SELECT oid, oname, item_name, odate FROM orders WHERE ostatus = '배송 중'";
-    public static final String UPDATE_ORDER_STATUS_TO_DELIVERED =
-            "UPDATE orders SET ostatus = '배송 완료' WHERE oid = ?";
-    public static final String SELECT_DELIVERED_ORDERS =
-            "SELECT oid, oname, item_name, odate FROM orders WHERE ostatus = '배송 완료'";
+            "SELECT * FROM orders";
+    public static final String INSERT_ORDERS =
+            "INSERT INTO orders (cid, oname, address, address_detail, zip_code, phone, msg) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static final String DELETE_ORDERS =
+            "DELETE FROM orders WHERE oid = ?";
+    // 특정 주문 조회
+    public static final String SELECT_ORDER_BY_ID =
+            "SELECT * FROM orders WHERE oid = ?";
+    // 특정 고객의 주문 조회
+    public static final String SELECT_ORDERS_BY_CID =
+            "SELECT * FROM orders WHERE cid = ?";
+    // ostatus 상태에 따른 주문조회
+    public static final String SELECT_ORDERS_BY_STATUS=
+            "SELECT oid, oname, odate FROM orders WHERE ostatus = ?";
+    // ostatus만 바꾸기 (관리자)
+    public static final String UPDATE_ORDERS_OSTATUS=
+            "UPDATE orders SET ostatus = ? WHERE oid = ?";
 
     // 회원
     public static final String INSERT_CUSTOMER =
