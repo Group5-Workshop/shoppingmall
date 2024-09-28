@@ -67,6 +67,12 @@ public class Sql {
             "SELECT * FROM customer WHERE email = ?";
 
     // 접속 통계
+    public static final String INSERT_ACCESS_LOG =
+            "INSERT INTO access_log (cid) VALUES (?)";
+    public static final String SELECT_ACCESS_LOG_BY_ID =
+            "SELECT * FROM access_log WHERE log_id = ?";
+    public static final String SELECT_ALL_ACCESS_LOGS =
+            "SELECT * FROM access_log";
     public static final String SELECT_HOURLY_ACCESS_STATS =
             "SELECT HOUR(access_time) AS 접속시간, COUNT(*) AS 접속자수 FROM access_log GROUP BY HOUR(access_time) ORDER BY 접속시간";
     public static final String SELECT_DAILY_ACCESS_STATS =
