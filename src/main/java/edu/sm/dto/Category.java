@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Category {
-    private int categoryKey;
-    private String categoryName;
-    private String categorydetails;
+    private int categoryId;       // 카테고리 ID (Primary Key)
+    private String categoryName;  // 카테고리 이름
+    private String categoryDetail; // 카테고리 설명
 }

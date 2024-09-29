@@ -103,15 +103,17 @@ public class Sql {
     public static final String SELECT_MONTHLY_ORDER_STATS =
             "SELECT MONTH(odate) AS 월, COUNT(*) AS 주문수, SUM(pay_price) AS 총매출 FROM orders o JOIN pay p ON o.oid = p.oid GROUP BY MONTH(odate)";
 
-    // 카테고리 관리
-    public static final String SELECT_ALL_CATEGORIES =
-            "SELECT category_id, category_name, category_detail FROM category";
+    // 카테고리
     public static final String INSERT_CATEGORY =
             "INSERT INTO category (category_name, category_detail) VALUES (?, ?)";
     public static final String UPDATE_CATEGORY =
-            "UPDATE category SET category_name=?, category_detail=? WHERE category_id=?";
+            "UPDATE category SET category_name = ?, category_detail = ? WHERE category_id = ?";
     public static final String DELETE_CATEGORY =
-            "DELETE FROM category WHERE category_id=?";
+            "DELETE FROM category WHERE category_id = ?";
+    public static final String SELECT_CATEGORY_BY_ID =
+            "SELECT * FROM category WHERE category_id = ?";
+    public static final String SELECT_ALL_CATEGORIES =
+            "SELECT * FROM category";
 
     // 결제 관련
     public static final String INSERT_PAY =
@@ -162,5 +164,6 @@ public class Sql {
             "SELECT * FROM discount WHERE dis_id = ?";
     public static final String SELECT_ALL_DISCOUNTS =
             "SELECT * FROM discount";
+
 
 }
