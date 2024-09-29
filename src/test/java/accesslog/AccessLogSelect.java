@@ -10,7 +10,7 @@ public class AccessLogSelect {
     public static void main(String[] args) {
         AccessLogService accessLogService = new AccessLogService();
 
-        int logId = 1;  // 조회할 로그 ID 설정
+        int logId = 7;  // 조회할 로그 ID 설정
         try {
             AccessLog accessLog = accessLogService.get(logId);
             if (accessLog != null) {

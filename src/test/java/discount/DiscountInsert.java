@@ -19,8 +19,24 @@ public class DiscountInsert {
 
         try {
             discountService.add(discount);  // 할인 추가
-            System.out.println("할인 추가 성공");
+
+            System.out.println("=====================================");
+            System.out.println("         [ 할인 추가 성공 ]           ");
+            System.out.println("-------------------------------------");
+            System.out.println("  할인명      : " + discount.getDisName());
+            System.out.println("  할인율      : " + discount.getDisRate() + "%");
+            System.out.println("  시작일      : " + discount.getDisStart());
+            System.out.println("  종료일      : " + discount.getDisEnd());
+            System.out.println("-------------------------------------");
+            System.out.println("할인 정보가 성공적으로 추가되었습니다.");
+            System.out.println("=====================================");
+
         } catch (Exception e) {
+            System.out.println("=====================================");
+            System.out.println("      [ 할인 추가 중 오류 발생 ]       ");
+            System.out.println("-------------------------------------");
+            System.out.println("에러 메시지: " + e.getMessage());
+            System.out.println("=====================================");
             e.printStackTrace();
         }
     }

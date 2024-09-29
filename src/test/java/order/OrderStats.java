@@ -11,30 +11,47 @@ public class OrderStats {
 
         try {
             // 일별 주문 통계 출력
-            System.out.println("=== 일별 주문 통계 ===");
+            System.out.println("=====================================");
+            System.out.println("          [ 일별 주문 통계 ]          ");
+            System.out.println("=====================================");
             List<Map<String, Object>> dailyStats = orderService.getDailyOrderStats();
-            for (Map<String, Object> stat : dailyStats) {
-                // SQL 쿼리에서 사용하는 필드명에 맞추어 get() 수정
-                System.out.printf("날짜: %s, 총 주문 수: %d, 총 매출: %,d원\n",
-                        stat.get("order_date"),  // 날짜 필드명
-                        stat.get("total_orders"),  // 주문 수 필드명
-                        stat.get("total_sales")   // 매출 필드명
-                );
+            if (dailyStats.isEmpty()) {
+                System.out.println("일별 주문 통계 데이터가 없습니다.");
+            } else {
+                for (Map<String, Object> stat : dailyStats) {
+                    System.out.printf("%s | 총 주문 수 : %d | 총 매출 : %,d원\n",
+                            stat.get("order_date"),    // 날짜 필드명
+                            stat.get("total_orders"),  // 주문 수 필드명
+                            stat.get("total_sales")    // 매출 필드명
+                    );
+                }
             }
+            System.out.println("=====================================");
 
             // 월별 주문 통계 출력
-            System.out.println("\n=== 월별 주문 통계 ===");
+            System.out.println("\n=====================================");
+            System.out.println("          [ 월별 주문 통계 ]          ");
+            System.out.println("=====================================");
             List<Map<String, Object>> monthlyStats = orderService.getMonthlyOrderStats();
-            for (Map<String, Object> stat : monthlyStats) {
-                // SQL 쿼리에서 사용하는 필드명에 맞추어 get() 수정
-                System.out.printf("년도: %d, 월: %d, 총 주문 수: %d, 총 매출: %,d원\n",
-                        stat.get("order_year"),  // 연도 필드명
-                        stat.get("order_month"), // 월 필드명
-                        stat.get("total_orders"),  // 주문 수 필드명
-                        stat.get("total_sales")   // 매출 필드명
-                );
+            if (monthlyStats.isEmpty()) {
+                System.out.println("월별 주문 통계 데이터가 없습니다.");
+            } else {
+                for (Map<String, Object> stat : monthlyStats) {
+                    System.out.printf("%d년 %d월 | 총 주문 수 : %d | 총 매출 : %,d원\n",
+                            stat.get("order_year"),   // 연도 필드명
+                            stat.get("order_month"),  // 월 필드명
+                            stat.get("total_orders"), // 주문 수 필드명
+                            stat.get("total_sales")   // 매출 필드명
+                    );
+                }
             }
+            System.out.println("=====================================");
         } catch (Exception e) {
+            System.out.println("=====================================");
+            System.out.println("        [ 주문 통계 조회 중 오류 발생 ] ");
+            System.out.println("-------------------------------------");
+            System.out.println("에러 메시지: " + e.getMessage());
+            System.out.println("=====================================");
             e.printStackTrace();
         }
     }

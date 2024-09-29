@@ -10,7 +10,7 @@ public class AccessLogStats {
 
         try {
             System.out.println("=====================================");
-            System.out.println("       [ 접근 로그 통계 조회 ]        ");
+            System.out.println("       [ 접근 로그 통계 조회 ]         ");
             System.out.println("=====================================");
 
             // 시간별 접속 통계

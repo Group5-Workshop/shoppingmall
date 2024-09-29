@@ -25,7 +25,25 @@ public class CustomerInsert {
 
         try {
             customerService.add(customer);
+
+            System.out.println("=====================================");
+            System.out.println("         [ 고객 추가 성공 ]           ");
+            System.out.println("-------------------------------------");
+            System.out.println("  고객 이름    : " + customer.getCname());
+            System.out.println("  이메일       : " + customer.getEmail());
+            System.out.println("  전화번호     : " + customer.getPhone());
+            System.out.println("  생년월일     : " + customer.getBirth_date());
+            System.out.println("  닉네임       : " + customer.getNick_name());
+            System.out.println("-------------------------------------");
+            System.out.println("고객 정보가 성공적으로 추가되었습니다.");
+            System.out.println("=====================================");
+
         } catch (Exception e) {
+            System.out.println("=====================================");
+            System.out.println("     [ 고객 추가 중 오류 발생 ]        ");
+            System.out.println("-------------------------------------");
+            System.out.println("에러 메시지: " + e.getMessage());
+            System.out.println("=====================================");
             e.printStackTrace();
         }
     }

@@ -15,7 +15,7 @@ public class AccessLogSelectAll {
             List<AccessLog> accessLogs = accessLogService.get();
             if (accessLogs.isEmpty()) {
                 System.out.println("=====================================");
-                System.out.println("     [ 조회된 접근 로그가 없습니다 ]    ");
+                System.out.println("     [ 조회된 접근 로그가 없습니다  ]    ");
                 System.out.println("=====================================");
             } else {
                 System.out.println("=====================================");

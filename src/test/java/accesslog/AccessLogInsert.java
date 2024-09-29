@@ -18,7 +18,7 @@ public class AccessLogInsert {
             String formattedDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
             System.out.println("=====================================");
-            System.out.println("         [ 접속 로그 추가 완료 ]       ");
+            System.out.println("         [ 접속 로그 추가 완료 ]        ");
             System.out.println("-------------------------------------");
             System.out.println("  사용자 ID (CID) : " + accessLog.getCid());
             System.out.println("  등록 시간       : " + formattedDateTime);

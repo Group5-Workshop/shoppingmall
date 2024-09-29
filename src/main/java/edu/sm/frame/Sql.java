@@ -74,7 +74,7 @@ public class Sql {
             "SELECT * FROM orders WHERE cid = ?";
     // ostatus 상태에 따른 주문조회
     public static final String SELECT_ORDERS_BY_STATUS=
-            "SELECT oid, oname, odate FROM orders WHERE ostatus = ?";
+            "SELECT oid, cid, ostatus, oname, address, address_detail, zip_code, phone, msg, odate, price FROM orders WHERE ostatus = ?";
     // ostatus만 바꾸기 (관리자)
     public static final String UPDATE_ORDERS_OSTATUS=
             "UPDATE orders SET ostatus = ? WHERE oid = ?";
