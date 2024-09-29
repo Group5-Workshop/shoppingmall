@@ -20,21 +20,43 @@ public class Sql {
 
 
     // 상품
-    public static final String SELECT_ALL_PRODUCTS =
-            "SELECT pid, pname, price, cnt, pdate FROM product WHERE pname LIKE ? OR category_id = ? ORDER BY pdate DESC LIMIT ? OFFSET ?";
-    public static final String UPDATE_PRODUCT =
-            "UPDATE product SET pname = ?, price = ?, content = ?, cnt = ?, category_id = ?, img1 = ?, img2 = ?, img3 = ?, img4 = ?, dis_id = ?, is_public = ? WHERE pid = ?";
     public static final String INSERT_PRODUCT =
-            "INSERT INTO product (category_id, dis_id, pname, price, cnt, img1, img2, img3, img4, content, pdate, is_public) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?)";
-    public static final String SELECT_ALL_PRODUCT_STOCKS =
-            "SELECT pid, pname, cnt FROM product ORDER BY pname";
-    public static final String UPDATE_PRODUCT_STOCK =
-            "UPDATE product SET cnt = cnt + ? WHERE pid = ?";
-    public static final String DEACTIVATE_PRODUCT =
-            "UPDATE product SET is_public = 0 WHERE pid = ?";
-    public static final String SELECT_ONE_PRODUCT =
-            "SELECT * FROM product WHERE pid = ? AND is_public = 1";
+            "INSERT INTO product (category_id, dis_id, pname, price, cnt, img1, img2, img3, img4, content, is_public) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public static final String UPDATE_PRODUCT =
+            "UPDATE product SET category_id=?, dis_id=?, pname=?, price=?, cnt=?, img1=?, img2=?, img3=?, img4=?, content=?, is_public=? " +
+                    "WHERE pid=?";
+    public static final String DELETE_PRODUCT =
+            "DELETE FROM product WHERE pid=?";
+    public static final String SELECT_PRODUCT_BY_ID =
+            "SELECT * FROM product WHERE pid=?";
+    public static final String SELECT_ALL_PRODUCTS =
+            "SELECT * FROM product";
+    public static final String SELECT_PUBLIC_PRODUCTS =
+            "SELECT * FROM product WHERE is_public = true";
+    public static final String SELECT_PRODUCTS_BY_CATEGORY =
+            "SELECT * FROM product WHERE category_id = ?";
+    public static final String SELECT_PRODUCT_BY_NAME =
+            "SELECT * FROM product WHERE pname LIKE ?";
+    // 정렬 sql
+    public static final String SELECT_PRODUCT_ORDER_BY_PRICE_ASC =
+            "SELECT * FROM product WHERE (category_id = ? OR ? IS NULL) ORDER BY price ASC";
 
+    public static final String SELECT_PRODUCT_ORDER_BY_PRICE_DESC =
+            "SELECT * FROM product WHERE (category_id = ? OR ? IS NULL) ORDER BY price DESC";
+
+    public static final String SELECT_PRODUCT_ORDER_BY_REVIEW_COUNT =
+            "SELECT p.*, COUNT(r.rid) AS review_count " +
+                    "FROM product p LEFT JOIN review r ON p.pid = r.pid " +
+                    "WHERE (p.category_id = ? OR ? IS NULL) " +
+                    "GROUP BY p.pid ORDER BY review_count DESC";
+    public static final String SELECT_PRODUCT_ORDER_BY_SALES_COUNT =
+            "SELECT p.*, COUNT(od.pid) AS sales_count " +
+                    "FROM product p " +
+                    "LEFT JOIN order_detail od ON p.pid = od.pid " +
+                    "WHERE (p.category_id = ? OR ? IS NULL) " +
+                    "GROUP BY p.pid " +
+                    "ORDER BY sales_count DESC";
 
     // 주문
     // 주문 추가
@@ -44,8 +66,6 @@ public class Sql {
     public static final String INSERT_ORDERS =
             "INSERT INTO orders (cid, oname, address, address_detail, zip_code, phone, msg, price) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    public static final String DELETE_ORDERS =
-            "DELETE FROM orders WHERE oid = ?";
     // 특정 주문 조회
     public static final String SELECT_ORDER_BY_ID =
             "SELECT * FROM orders WHERE oid = ?";
@@ -58,6 +78,15 @@ public class Sql {
     // ostatus만 바꾸기 (관리자)
     public static final String UPDATE_ORDERS_OSTATUS=
             "UPDATE orders SET ostatus = ? WHERE oid = ?";
+    // 일별 주문 통계 (주문 개수와 총 매출)
+    public static final String SELECT_DAILY_ORDER_STATS =
+            "SELECT DATE(odate) AS order_date, COUNT(*) AS total_orders, SUM(price) AS total_sales " +
+                    "FROM orders GROUP BY order_date";
+   //월별 주문 통계 (주문 개수와 총 매출)
+    public static final String SELECT_MONTHLY_ORDER_STATS =
+            "SELECT YEAR(odate) AS order_year, MONTH(odate) AS order_month, COUNT(*) AS total_orders, SUM(price) AS total_sales " +
+                    "FROM orders GROUP BY order_year, order_month";
+
 
     // 회원
     public static final String INSERT_CUSTOMER =
