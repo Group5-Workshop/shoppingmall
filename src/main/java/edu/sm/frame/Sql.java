@@ -95,6 +95,9 @@ public class Sql {
             "UPDATE category SET category_name=?, category_detail=? WHERE category_id=?";
     public static final String DELETE_CATEGORY =
             "DELETE FROM category WHERE category_id=?";
+    public static final String SELECT_ONE_CATEGORY =
+            "SELECT category_id, category_name, category_detail FROM category WHERE category_id=?";
+
 
     // 결제 관련
     public static final String SELECT_ALL_PAYMENTS =

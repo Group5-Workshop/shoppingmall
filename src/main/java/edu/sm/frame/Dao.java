@@ -8,4 +8,5 @@ public interface Dao<K, V> {
     V update(V v, Connection conn) throws Exception;
     boolean delete(K k, Connection conn) throws Exception;
     V select(K k, Connection conn) throws Exception;
+    List<V> select(Connection con) throws Exception;
 }
