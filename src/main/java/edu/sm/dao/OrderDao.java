@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDao implements Dao<Integer, Order> {
 
@@ -188,5 +190,58 @@ public class OrderDao implements Dao<Integer, Order> {
             if (rs != null) rs.close();
         }
         return orders;
+    }
+
+    // 일별 주문 통계 조회
+    public List<Map<String, Object>> selectDailyOrderStats(Connection conn) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Map<String, Object>> stats = new ArrayList<>();
+
+        try {
+            ps = conn.prepareStatement(Sql.SELECT_DAILY_ORDER_STATS);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Map<String, Object> stat = new HashMap<>();
+                stat.put("order_date", rs.getDate("order_date"));
+                stat.put("total_orders", rs.getInt("total_orders"));
+                stat.put("total_sales", rs.getInt("total_sales"));
+                stats.add(stat);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (ps != null) ps.close();
+            if (rs != null) rs.close();
+        }
+        return stats;
+    }
+
+    // 월별 주문 통계 조회
+    public List<Map<String, Object>> selectMonthlyOrderStats(Connection conn) throws Exception {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Map<String, Object>> stats = new ArrayList<>();
+
+        try {
+            ps = conn.prepareStatement(Sql.SELECT_MONTHLY_ORDER_STATS);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Map<String, Object> stat = new HashMap<>();
+                stat.put("order_year", rs.getInt("order_year"));
+                stat.put("order_month", rs.getInt("order_month"));
+                stat.put("total_orders", rs.getInt("total_orders"));
+                stat.put("total_sales", rs.getInt("total_sales"));
+                stats.add(stat);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (ps != null) ps.close();
+            if (rs != null) rs.close();
+        }
+        return stats;
     }
 }

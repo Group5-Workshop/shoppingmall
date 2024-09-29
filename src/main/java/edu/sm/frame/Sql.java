@@ -126,11 +126,6 @@ public class Sql {
     public static final String SELECT_YEARLY_ACCESS_STATS =
             "SELECT YEAR(access_time) AS 연도, COUNT(*) AS 접속자수 FROM access_log GROUP BY YEAR(access_time)";
 
-    // 일별/월별 주문 통계
-    public static final String SELECT_DAILY_ORDER_STATS =
-            "SELECT DATE(odate) AS 주문일, COUNT(*) AS 주문수, SUM(pay_price) AS 총매출 FROM orders o JOIN pay p ON o.oid = p.oid GROUP BY DATE(odate)";
-    public static final String SELECT_MONTHLY_ORDER_STATS =
-            "SELECT MONTH(odate) AS 월, COUNT(*) AS 주문수, SUM(pay_price) AS 총매출 FROM orders o JOIN pay p ON o.oid = p.oid GROUP BY MONTH(odate)";
 
     // 카테고리
     public static final String INSERT_CATEGORY =

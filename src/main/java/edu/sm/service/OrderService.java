@@ -8,6 +8,7 @@ import edu.sm.frame.MService;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class OrderService implements MService<Integer, Order> {
     OrderDao dao;
@@ -120,5 +121,33 @@ public class OrderService implements MService<Integer, Order> {
             cp.releaseConnection(conn);
         }
         return orders;
+    }
+
+    // 일별 주문 통계
+    public List<Map<String, Object>> getDailyOrderStats() throws Exception {
+        Connection conn = cp.getConnection();
+        List<Map<String, Object>> stats;
+        try {
+            stats = dao.selectDailyOrderStats(conn);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            cp.releaseConnection(conn);
+        }
+        return stats;
+    }
+
+    // 월별 주문 통계
+    public List<Map<String, Object>> getMonthlyOrderStats() throws Exception {
+        Connection conn = cp.getConnection();
+        List<Map<String, Object>> stats;
+        try {
+            stats = dao.selectMonthlyOrderStats(conn);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            cp.releaseConnection(conn);
+        }
+        return stats;
     }
 }
