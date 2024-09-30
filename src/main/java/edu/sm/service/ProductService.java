@@ -53,16 +53,7 @@ public class ProductService implements MService<Integer, Product> {
 
     @Override
     public Boolean remove(Integer pid) throws Exception {
-        Connection conn = cp.getConnection();
-        Boolean result = false;
-        try {
-            result = dao.delete(pid, conn);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            cp.releaseConnection(conn);
-        }
-        return result;
+        throw new UnsupportedOperationException("상품 삭제 불가능");
     }
 
     @Override

@@ -26,8 +26,6 @@ public class Sql {
     public static final String UPDATE_PRODUCT =
             "UPDATE product SET category_id=?, dis_id=?, pname=?, price=?, cnt=?, img1=?, img2=?, img3=?, img4=?, content=?, is_public=? " +
                     "WHERE pid=?";
-    public static final String DELETE_PRODUCT =
-            "DELETE FROM product WHERE pid=?";
     public static final String SELECT_PRODUCT_BY_ID =
             "SELECT * FROM product WHERE pid=?";
     public static final String SELECT_ALL_PRODUCTS =
