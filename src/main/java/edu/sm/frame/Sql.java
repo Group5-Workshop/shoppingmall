@@ -61,13 +61,13 @@ public class Sql {
 
     // 장바구니
     public static final String INSERT_CART =
-            "INSERT INTO cart (cid, pid, cnt) VALUES (?, ?, ?)";
+            "INSERT INTO cart (cid, pid, cnt, price) VALUES (?, ?, ?, ?)"; // price 필드 추가
     public static final String UPDATE_CART_CNT =
-            "UPDATE cart SET cnt = ? WHERE cid = ? AND pid = ?";
+            "UPDATE cart SET cnt = ?, price = ? WHERE cid = ? AND pid = ?"; // 수량과 함께 가격도 업데이트
     public static final String DELETE_CART_BY_CID_PID =
             "DELETE FROM cart WHERE cid = ? AND pid = ?";
     public static final String SELECT_CART_BY_CID =
-            "SELECT * FROM cart WHERE cid = ?";
+            "SELECT * FROM cart WHERE cid = ?"; // price 필드도 함께 SELECT 됨
 
     // 주문
     public static final String SELECT_ALL_ORDERS =

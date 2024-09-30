@@ -28,6 +28,7 @@ public class CartSelectByCid {
                     System.out.println("장바구니 ID  : " + cart.getCartKey());
                     System.out.println("상품 ID      : " + cart.getPid());
                     System.out.println("수량         : " + cart.getCnt());
+                    System.out.println("금액         : " + cart.getPrice());
                     System.out.println("-------------------------------------");
                 }
 

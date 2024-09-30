@@ -14,8 +14,8 @@ import java.sql.Date;
 @Builder
 public class Cart {
     private int cartKey;
-    private int cid; // 사용자 Id
-    private int pid; // 상품 id
+    private int cid;
+    private int pid;
     private int cnt;
+    private int price; // 가격 필드 추가
 }
-

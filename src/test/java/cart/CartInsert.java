@@ -7,8 +7,7 @@ public class CartInsert {
     public static void main(String[] args) {
         CartService cartService = new CartService();
 
-        // 장바구니 항목을 추가할 데이터를 생성
-        Cart cart = new Cart(0, 1, 1, 2); // cartKey = 0 대신 0 설정, cid, pid, cnt 추가
+        Cart cart = new Cart(0, 1, 6, 2, 0); // cartKey = 0, cid = 1, pid = 1, cnt = 2, price = 10000
 
         try {
             cartService.add(cart);
@@ -18,6 +17,7 @@ public class CartInsert {
             System.out.println("  고객 ID      : " + cart.getCid());
             System.out.println("  상품 ID      : " + cart.getPid());
             System.out.println("  수량         : " + cart.getCnt());
+            System.out.println("  가격         : " + cart.getPrice() + "원");
             System.out.println("-------------------------------------");
             System.out.println("장바구니 항목이 성공적으로 추가되었습니다.");
             System.out.println("=====================================");

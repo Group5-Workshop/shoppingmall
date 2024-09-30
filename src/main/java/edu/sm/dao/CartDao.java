@@ -13,33 +13,65 @@ public class CartDao implements Dao<Integer, Cart> {
     @Override
     public Cart insert(Cart cart, Connection conn) throws Exception {
         PreparedStatement ps = null;
+        ResultSet rs = null;
+
         try {
+            // 상품 가격 가져오기
+            String productPriceQuery = "SELECT price FROM product WHERE pid = ?";
+            ps = conn.prepareStatement(productPriceQuery);
+            ps.setInt(1, cart.getPid());
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int productPrice = rs.getInt("price");
+                cart.setPrice(productPrice * cart.getCnt());  // 금액 계산
+            }
+
             ps = conn.prepareStatement(Sql.INSERT_CART);
             ps.setInt(1, cart.getCid());
             ps.setInt(2, cart.getPid());
             ps.setInt(3, cart.getCnt());
+            ps.setInt(4, cart.getPrice());
             ps.executeUpdate();
+
         } catch (Exception e) {
             throw e;
         } finally {
             if (ps != null) ps.close();
+            if (rs != null) rs.close();
         }
         return cart;
     }
+
     @Override
     public Cart update(Cart cart, Connection conn) throws Exception {
         PreparedStatement ps = null;
+        ResultSet rs = null;
+
         try {
+            // 상품 가격 가져오기
+            String productPriceQuery = "SELECT price FROM product WHERE pid = ?";
+            ps = conn.prepareStatement(productPriceQuery);
+            ps.setInt(1, cart.getPid());
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int productPrice = rs.getInt("price");
+                cart.setPrice(productPrice * cart.getCnt());  // 금액 계산
+            }
+
             ps = conn.prepareStatement(Sql.UPDATE_CART_CNT);
             ps.setInt(1, cart.getCnt());
-            ps.setInt(2, cart.getCid());
-            ps.setInt(3, cart.getPid());
-
+            ps.setInt(2, cart.getPrice());  // 새로운 가격 반영
+            ps.setInt(3, cart.getCartKey());
+            ps.setInt(4, cart.getPrice());
             ps.executeUpdate();
+
         } catch (Exception e) {
             throw e;
         } finally {
             if (ps != null) ps.close();
+            if (rs != null) rs.close();
         }
         return cart;
     }
@@ -72,7 +104,8 @@ public class CartDao implements Dao<Integer, Cart> {
                         rs.getInt("cart_id"),
                         rs.getInt("cid"),
                         rs.getInt("pid"),
-                        rs.getInt("cnt")
+                        rs.getInt("cnt"),
+                        rs.getInt("price")
                 ));
             }
         } catch (Exception e) {
