@@ -17,7 +17,7 @@ public class CartDao implements Dao<Integer, Cart> {
 
         try {
             // 상품 가격 가져오기
-            String productPriceQuery = "SELECT price FROM product WHERE pid = ?";
+            String productPriceQuery = Sql.SELECT_PRODUCT_PRICE;
             ps = conn.prepareStatement(productPriceQuery);
             ps.setInt(1, cart.getPid());
             rs = ps.executeQuery();
@@ -50,7 +50,7 @@ public class CartDao implements Dao<Integer, Cart> {
 
         try {
             // 상품 가격 가져오기
-            String productPriceQuery = "SELECT price FROM product WHERE pid = ?";
+            String productPriceQuery = Sql.SELECT_PRODUCT_PRICE;
             ps = conn.prepareStatement(productPriceQuery);
             ps.setInt(1, cart.getPid());
             rs = ps.executeQuery();

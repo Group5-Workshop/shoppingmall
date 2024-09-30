@@ -18,7 +18,7 @@ public class OrderDetailDao implements Dao<Integer, OrderDetail> {
         ResultSet rs = null;
         try {
             // 상품 가격 조회 SQL
-            String selectPriceSql = "SELECT price FROM product WHERE pid = ?";
+            String selectPriceSql = Sql.SELECT_PRODUCT_PRICE;
             ps = conn.prepareStatement(selectPriceSql);
             ps.setInt(1, orderDetail.getPid());
             rs = ps.executeQuery();

@@ -35,6 +35,8 @@ public class Sql {
             "SELECT * FROM product WHERE category_id = ?";
     public static final String SELECT_PRODUCT_BY_NAME =
             "SELECT * FROM product WHERE pname LIKE ?";
+    public static final String SELECT_PRODUCT_PRICE=
+            "SELECT price FROM product WHERE pid = ?";
 
     // 정렬 sql
     public static final String SELECT_PRODUCT_ORDER_BY_PRICE_ASC =
