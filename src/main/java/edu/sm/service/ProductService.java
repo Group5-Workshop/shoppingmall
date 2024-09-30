@@ -147,5 +147,34 @@ public class ProductService implements MService<Integer, Product> {
         return products;
     }
 
+    // 공개된 상품을 카테고리별로 조회
+    public List<Product> getPublicProductsByCategory(int categoryId) throws Exception {
+        Connection conn = cp.getConnection();
+        List<Product> products;
+        try {
+            products = dao.selectPublicByCategory(categoryId, conn);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            cp.releaseConnection(conn);
+        }
+        return products;
+    }
+
+    // 공개된 상품을 상품명으로 조회
+    public List<Product> getPublicByName(String pname) throws Exception {
+        Connection conn = cp.getConnection();
+        List<Product> products = null;
+        try {
+            products = dao.selectPublicByName(pname, conn);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            cp.releaseConnection(conn);
+        }
+        return products;
+    }
+
+
 
 }

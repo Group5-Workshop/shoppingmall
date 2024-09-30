@@ -57,6 +57,13 @@ public class Sql {
                     "WHERE (p.category_id = ? OR ? IS NULL) " +
                     "GROUP BY p.pid " +
                     "ORDER BY sales_count DESC";
+    // 공개된 상품을 카테고리별로 조회하는 SQL
+    public static final String SELECT_PUBLIC_PRODUCTS_BY_CATEGORY =
+            "SELECT * FROM product WHERE category_id = ? AND is_public = true";
+
+    // 공개된 상품을 상품명으로 조회하는 SQL
+    public static final String SELECT_PUBLIC_PRODUCT_BY_NAME =
+            "SELECT * FROM product WHERE pname LIKE ? AND is_public = true";
 
     // 주문
     // 주문 추가
