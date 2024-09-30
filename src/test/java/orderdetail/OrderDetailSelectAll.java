@@ -25,6 +25,7 @@ public class OrderDetailSelectAll {
                     System.out.println("주문 ID      : " + detail.getOid());
                     System.out.println("상품 ID      : " + detail.getPid());
                     System.out.println("상품 수량     : " + detail.getItemCnt());
+                    System.out.println("금액       : " + detail.getOdPrice());
                     System.out.println("-------------------------------------");
                 }
 

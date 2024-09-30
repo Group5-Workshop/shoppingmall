@@ -2,7 +2,7 @@ package edu.sm.frame;
 
 public class Sql {
 
-    // 리뷰 관리
+    // 리뷰
     public static final String INSERT_REVIEW =
             "INSERT INTO review (pid, cid, rate, title, content, img) VALUES (?, ?, ?, ?, ?, ?)";
     public static final String UPDATE_REVIEW =
@@ -17,7 +17,6 @@ public class Sql {
             "SELECT * FROM review WHERE pid = ?";
     public static final String CHECK_DUPLICATE_REVIEW =
             "SELECT COUNT(*) FROM review WHERE cid = ? AND pid = ?";
-
 
     // 상품
     public static final String INSERT_PRODUCT =
@@ -36,13 +35,12 @@ public class Sql {
             "SELECT * FROM product WHERE category_id = ?";
     public static final String SELECT_PRODUCT_BY_NAME =
             "SELECT * FROM product WHERE pname LIKE ?";
+
     // 정렬 sql
     public static final String SELECT_PRODUCT_ORDER_BY_PRICE_ASC =
             "SELECT * FROM product WHERE (category_id = ? OR ? IS NULL) ORDER BY price ASC";
-
     public static final String SELECT_PRODUCT_ORDER_BY_PRICE_DESC =
             "SELECT * FROM product WHERE (category_id = ? OR ? IS NULL) ORDER BY price DESC";
-
     public static final String SELECT_PRODUCT_ORDER_BY_REVIEW_COUNT =
             "SELECT p.*, COUNT(r.rid) AS review_count " +
                     "FROM product p LEFT JOIN review r ON p.pid = r.pid " +
@@ -55,66 +53,42 @@ public class Sql {
                     "WHERE (p.category_id = ? OR ? IS NULL) " +
                     "GROUP BY p.pid " +
                     "ORDER BY sales_count DESC";
-    // 공개된 상품을 카테고리별로 조회하는 SQL
     public static final String SELECT_PUBLIC_PRODUCTS_BY_CATEGORY =
             "SELECT * FROM product WHERE category_id = ? AND is_public = true";
-
-    // 공개된 상품을 상품명으로 조회하는 SQL
     public static final String SELECT_PUBLIC_PRODUCT_BY_NAME =
             "SELECT * FROM product WHERE pname LIKE ? AND is_public = true";
 
 
-    // 3. 장바구니 관련 CRUD
-// 수정된 Cart 관련 CRUD SQL
+    // 장바구니
     public static final String INSERT_CART =
             "INSERT INTO cart (cid, pid, cnt) VALUES (?, ?, ?)";
-
     public static final String UPDATE_CART_CNT =
             "UPDATE cart SET cnt = ? WHERE cid = ? AND pid = ?";
-
     public static final String DELETE_CART_BY_CID_PID =
             "DELETE FROM cart WHERE cid = ? AND pid = ?";
-
-    public static final String SELECT_CART =
-            "SELECT * FROM cart WHERE cart_id = ?";
-
-    public static final String SELECT_CART_ALL =
-            "SELECT * FROM cart";
-
     public static final String SELECT_CART_BY_CID =
             "SELECT * FROM cart WHERE cid = ?";
 
-
-
     // 주문
-    // 주문 추가
-    // 모든 주문 조회
     public static final String SELECT_ALL_ORDERS =
             "SELECT * FROM orders";
     public static final String INSERT_ORDERS =
             "INSERT INTO orders (cid, oname, address, address_detail, zip_code, phone, msg, price) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    // 특정 주문 조회
     public static final String SELECT_ORDER_BY_ID =
             "SELECT * FROM orders WHERE oid = ?";
-    // 특정 고객의 주문 조회
     public static final String SELECT_ORDERS_BY_CID =
             "SELECT * FROM orders WHERE cid = ?";
-    // ostatus 상태에 따른 주문조회
     public static final String SELECT_ORDERS_BY_STATUS=
             "SELECT oid, cid, ostatus, oname, address, address_detail, zip_code, phone, msg, odate, price FROM orders WHERE ostatus = ?";
-    // ostatus만 바꾸기 (관리자)
     public static final String UPDATE_ORDERS_OSTATUS=
             "UPDATE orders SET ostatus = ? WHERE oid = ?";
-    // 일별 주문 통계 (주문 개수와 총 매출)
     public static final String SELECT_DAILY_ORDER_STATS =
             "SELECT DATE(odate) AS order_date, COUNT(*) AS total_orders, SUM(price) AS total_sales " +
                     "FROM orders GROUP BY order_date";
-   //월별 주문 통계 (주문 개수와 총 매출)
     public static final String SELECT_MONTHLY_ORDER_STATS =
             "SELECT YEAR(odate) AS order_year, MONTH(odate) AS order_month, COUNT(*) AS total_orders, SUM(price) AS total_sales " +
                     "FROM orders GROUP BY order_year, order_month";
-
 
     // 회원
     public static final String INSERT_CUSTOMER =
@@ -154,7 +128,6 @@ public class Sql {
     public static final String SELECT_YEARLY_ACCESS_STATS =
             "SELECT YEAR(access_time) AS 연도, COUNT(*) AS 접속자수 FROM access_log GROUP BY YEAR(access_time)";
 
-
     // 카테고리
     public static final String INSERT_CATEGORY =
             "INSERT INTO category (category_name, category_detail) VALUES (?, ?)";
@@ -167,7 +140,7 @@ public class Sql {
     public static final String SELECT_ALL_CATEGORIES =
             "SELECT * FROM category";
 
-    // 결제 관련
+    // 결제
     public static final String INSERT_PAY =
             "INSERT INTO pay (oid, pay_price, pay_method, card) VALUES (?, ?, ?, ?)";
     public static final String SELECT_PAY_BY_ID =
@@ -177,14 +150,13 @@ public class Sql {
     public static final String SELECT_PAY_BY_ORDER_ID =
             "SELECT * FROM pay WHERE oid = ?";
 
-    // OrderDetiall 관련
+    // 상세주문
     public static final String INSERT_ORDER_DETAIL =
             "INSERT INTO order_detail (pid, oid, item_cnt, od_price) VALUES (?, ?, ?, ?)";
     public static final String SELECT_ORDER_DETAIL_BY_ID =
             "SELECT * FROM order_detail WHERE order_detail_id = ?";
     public static final String SELECT_ALL_ORDER_DETAILS =
             "SELECT * FROM order_detail";
-    // 특정 주문에 대한 주문 상세 목록을 조회하는 SQL (상품 이름 포함)
     public static final String SELECT_ORDER_DETAILS_BY_OID =
             "SELECT od.order_detail_id, od.oid, od.pid, od.item_cnt, od.od_price, p.pname " +
                     "FROM order_detail od " +
@@ -216,6 +188,4 @@ public class Sql {
             "SELECT * FROM discount WHERE dis_id = ?";
     public static final String SELECT_ALL_DISCOUNTS =
             "SELECT * FROM discount";
-
-
 }
