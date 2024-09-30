@@ -15,8 +15,9 @@ public class ProductDao implements Dao<Integer, Product> {
     @Override
     public Product insert(Product product, Connection conn) throws Exception {
         PreparedStatement ps = null;
+        ResultSet generatedKeys = null; // 추가
         try {
-            ps = conn.prepareStatement(Sql.INSERT_PRODUCT);
+            ps = conn.prepareStatement(Sql.INSERT_PRODUCT, PreparedStatement.RETURN_GENERATED_KEYS); // RETURN_GENERATED_KEYS 옵션 사용
             ps.setInt(1, product.getCategoryId());
             ps.setInt(2, product.getDisId());
             ps.setString(3, product.getPname());
@@ -28,10 +29,24 @@ public class ProductDao implements Dao<Integer, Product> {
             ps.setString(9, product.getImg4());
             ps.setString(10, product.getContent());
             ps.setBoolean(11, product.isPublic());
-            ps.executeUpdate();
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                throw new Exception("상품 삽입에 실패하였습니다. (영향을 받은 행이 없습니다)");
+            }
+
+            // 자동 생성된 키 가져오기
+            generatedKeys = ps.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                product.setPid(generatedKeys.getInt(1)); // 삽입된 상품 ID 설정
+            } else {
+                throw new Exception("상품 삽입에 실패하였습니다. (생성된 ID를 가져올 수 없습니다)");
+            }
+
         } catch (Exception e) {
             throw e;
         } finally {
+            if (generatedKeys != null) generatedKeys.close(); // 추가: ResultSet 닫기
             if (ps != null) ps.close();
         }
         return product;

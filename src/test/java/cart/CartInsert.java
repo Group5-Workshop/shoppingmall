@@ -18,6 +18,7 @@ public class CartInsert {
             System.out.println("  상품 ID      : " + cart.getPid());
             System.out.println("  수량         : " + cart.getCnt());
             System.out.println("  가격         : " + cart.getPrice() + "원");
+
             System.out.println("-------------------------------------");
             System.out.println("장바구니 항목이 성공적으로 추가되었습니다.");
             System.out.println("=====================================");

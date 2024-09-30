@@ -6,7 +6,7 @@ import edu.sm.service.CustomerService;
 public class CustomerDelete {
     public static void main(String[] args) {
         CustomerService customerService = new CustomerService();
-        int id = 21;
+        int id = 15;
         Customer cust = Customer.builder()
                 .cid(id)
                 .build();
