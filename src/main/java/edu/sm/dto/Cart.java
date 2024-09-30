@@ -1,6 +1,5 @@
 package edu.sm.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +17,18 @@ public class Cart {
     private int pid;
     private int cnt;
     private Date cdate;
-}
 
+    // 필요한 생성자 추가
+    public Cart(int cid, int pid, int cnt) {
+        this.cid = cid;
+        this.pid = pid;
+        this.cnt = cnt;
+    }
+
+    public Cart(int cartKey, int cid, int pid, int cnt) {
+        this.cartKey = cartKey;
+        this.cid = cid;
+        this.pid = pid;
+        this.cnt = cnt;
+    }
+}
