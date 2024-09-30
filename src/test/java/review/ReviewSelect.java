@@ -7,7 +7,7 @@ public class ReviewSelect {
     public static void main(String[] args) {
         ReviewService reviewService = new ReviewService();
         int rid = 5;  // 조회할 리뷰 ID
-        //
+
         try {
             Review review = reviewService.get(rid);
             if (review != null) {

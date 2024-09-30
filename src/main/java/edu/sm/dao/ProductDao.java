@@ -65,7 +65,19 @@ public class ProductDao implements Dao<Integer, Product> {
 
     @Override
     public boolean delete(Integer pid, Connection conn) throws Exception {
-        throw new UnsupportedOperationException("상품은 삭제 불가능");
+        PreparedStatement ps = null;
+        boolean flag = false;
+        try {
+            ps = conn.prepareStatement(Sql.DELETE_PRODUCT);
+            ps.setInt(1, pid);
+            int result = ps.executeUpdate();
+            if (result == 1) flag = true;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (ps != null) ps.close();
+        }
+        return flag;
     }
 
     @Override

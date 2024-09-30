@@ -2,7 +2,135 @@ package edu.sm.frame;
 
 public class Sql {
 
-    // 리뷰 관리
+        // 1. 주문 관련 CRUD
+
+        public static final String insertOrder =
+                "INSERT INTO orders (cid, odate, card, ostatus, oname, zip_code, addr, phone_num, item_name, item_img, cartKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        public static final String updateOrder =
+                "UPDATE orders SET cid = ?, odate = ?, card = ?, ostatus = ?, oname = ?, zip_code = ?, addr = ?, phone_num = ?, item_name = ?, item_img = ? WHERE oid = ?";
+
+        public static final String deleteOrder =
+                "DELETE FROM orders WHERE oid = ?";
+
+        public static final String selectOrderById =
+                "SELECT * FROM orders WHERE oid = ?";
+
+        public static final String selectAllOrders =
+                "SELECT * FROM orders";
+
+
+        // 2. 상품 조회 관련 (조회만 가능)
+
+        public static final String selectProductByCategory =
+                "SELECT p.pid, p.pname, p.price, p.img1 FROM product p WHERE p.categoryKey = (SELECT categoryKey FROM category WHERE categoryName = ?) ORDER BY p.pname";
+
+        public static final String selectProductByPopularity =
+                "SELECT p.pid, p.pname, p.price, COUNT(od.pid) AS purchase_count FROM product p LEFT JOIN orderDetail od ON p.pid = od.pid GROUP BY p.pid ORDER BY purchase_count DESC";
+
+        public static final String selectProductByDate =
+                "SELECT p.pid, p.pname, p.price, p.img1, p.pdate FROM product p ORDER BY p.pdate DESC";
+
+        public static final String selectProductDetails =
+                "SELECT p.pid, p.pname, p.price, p.content, p.img1, p.img2, p.img3, p.img4, (SELECT AVG(r.rate) FROM review r WHERE r.pid = p.pid) AS avg_rating FROM product p WHERE p.pid = ?";
+
+
+        // 3. 장바구니 관련 CRUD
+// 수정된 Cart 관련 CRUD SQL
+        public static final String insertCartItem =
+                "INSERT INTO cart (cid, pid, cnt) VALUES (?, ?, ?)";
+
+    public static final String updateCartItemCount =
+            "UPDATE cart SET cnt = ? WHERE cid = ? AND pid = ?";
+
+    public static final String deleteCartItem =
+            "DELETE FROM cart WHERE cid = ?";
+
+    public static final String deleteAllCartItemsByCustomer =
+            "DELETE FROM cart WHERE cid = ?";
+
+    public static final String selectCartItems =
+            "SELECT p.pname, cart.cnt, p.price, (cart.cnt * p.price) AS total_price FROM cart JOIN product p ON cart.pid = p.pid WHERE cart.cid = ?";
+
+    public static final String selectCartItemById =
+            "SELECT * FROM cart WHERE cart_id = ?";
+
+    public static final String selectAllCartItems =
+            "SELECT * FROM cart";
+
+    public static final String selectCartItemsByCustomerId =
+            "SELECT * FROM cart WHERE cid = ?";
+
+
+    // 4. 결제 관련 (조회만 가능)
+
+        public static final String selectPaymentInfo =
+                "SELECT p.oid, p.pay_price, p.pay_method, p.card, p.pay_date FROM pay p JOIN orders o ON p.oid = o.oid WHERE o.cid = ?";
+
+
+        // 5. 리뷰 관련 CRUD (사용자 및 관리자 구분하여 이름 변경)
+
+        // 사용자 리뷰 관련
+        public static final String insertUserReview =
+                "INSERT INTO review (reviewKey, pid, cid, rate, title, content, img, rdate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        public static final String updateUserReview =
+                "UPDATE review SET pid=?, cid=?, rate=?, title=?, content=?, img=?, rdate=? WHERE reviewKey=?";
+
+        public static final String deleteUserReview =
+                "DELETE FROM review WHERE reviewKey=?";
+
+        public static final String selectOneUserReview =
+                "SELECT * FROM review WHERE reviewKey=?";
+
+        public static final String selectUserReviews =
+                "SELECT * FROM review WHERE cid=?";
+
+        // 6. 마이페이지 관련 조회 (Read)
+
+        public static final String selectUserInfo =
+                "SELECT c.cid, c.cname, c.email, c.phone_num, c.birth_date, c.nick_name, c.grade FROM customer c WHERE c.cid = ?";
+
+        public static final String selectUserOrders =
+                "SELECT o.oid, o.odate, o.ostatus, p.pay_price FROM orders o JOIN pay p ON o.oid = p.oid WHERE o.cid = ?";
+
+        public static final String selectOrderReturns =
+                "SELECT o.oid, o.ostatus, r.return_id, r.return_reason, r.return_status, r.request_date, r.return_type FROM orders o JOIN order_returns r ON r.oid = o.oid WHERE o.cid = ?";
+
+
+        // 7. 취소/반품/교환 관련 CRUD
+
+        public static final String insertReturnRequest =
+                "INSERT INTO order_returns (oid, return_reason, return_status, request_date, return_type) VALUES (?, ?, ?, ?, ?)";
+
+        public static final String updateReturnRequest =
+                "UPDATE order_returns SET return_reason = ?, return_status = ?, return_type = ? WHERE return_id = ? AND oid = ?";
+
+        public static final String deleteReturnRequest =
+                "DELETE FROM order_returns WHERE return_id = ? AND oid = ?";
+
+        public static final String selectReturnRequests =
+                "SELECT od.oid, p.pname, od.item_cnt, od.od_price, r.return_reason, r.return_status, r.return_type FROM orderDetail od " +
+                        "JOIN product p ON od.pid = p.pid " +
+                        "JOIN orders o ON od.oid = o.oid " +
+                        "JOIN order_returns r ON r.oid = o.oid " +
+                        "WHERE o.cid = ?";
+
+
+        // 8. 주문 내역 관련 조회 (Read)
+
+        public static final String selectOrderDetails =
+                "SELECT p.pname, od.item_cnt, od.od_price FROM orderDetail od JOIN product p ON od.pid = p.pid JOIN orders o ON od.oid = o.oid WHERE o.cid = ?";
+
+        public static final String selectOrderShippingInfo =
+                "SELECT o.ostatus, o.addr, o.zip_code, o.phone_num FROM orders o WHERE o.cid = ?";
+
+        public static final String selectReviewableOrders =
+                "SELECT p.pid, p.pname FROM product p JOIN orderDetail od ON p.pid = od.pid JOIN orders o ON od.oid = o.oid WHERE o.cid = ?";
+
+
+
+        // 리뷰 관리
     public static final String INSERT_REVIEW =
             "INSERT INTO review (pid, cid, rate, title, content, img) VALUES (?, ?, ?, ?, ?, ?)";
     public static final String UPDATE_REVIEW =
@@ -26,6 +154,8 @@ public class Sql {
     public static final String UPDATE_PRODUCT =
             "UPDATE product SET category_id=?, dis_id=?, pname=?, price=?, cnt=?, img1=?, img2=?, img3=?, img4=?, content=?, is_public=? " +
                     "WHERE pid=?";
+    public static final String DELETE_PRODUCT =
+            "DELETE FROM product WHERE pid=?";
     public static final String SELECT_PRODUCT_BY_ID =
             "SELECT * FROM product WHERE pid=?";
     public static final String SELECT_ALL_PRODUCTS =
