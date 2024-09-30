@@ -63,6 +63,29 @@ public class Sql {
     public static final String SELECT_PUBLIC_PRODUCT_BY_NAME =
             "SELECT * FROM product WHERE pname LIKE ? AND is_public = true";
 
+
+    // 3. 장바구니 관련 CRUD
+// 수정된 Cart 관련 CRUD SQL
+    public static final String INSERT_CART =
+            "INSERT INTO cart (cid, pid, cnt) VALUES (?, ?, ?)";
+
+    public static final String UPDATE_CART_CNT =
+            "UPDATE cart SET cnt = ? WHERE cid = ? AND pid = ?";
+
+    public static final String DELETE_CART_BY_CID_PID =
+            "DELETE FROM cart WHERE cid = ? AND pid = ?";
+
+    public static final String SELECT_CART =
+            "SELECT * FROM cart WHERE cart_id = ?";
+
+    public static final String SELECT_CART_ALL =
+            "SELECT * FROM cart";
+
+    public static final String SELECT_CART_BY_CID =
+            "SELECT * FROM cart WHERE cid = ?";
+
+
+
     // 주문
     // 주문 추가
     // 모든 주문 조회
