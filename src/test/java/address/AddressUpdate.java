@@ -9,8 +9,8 @@ public class AddressUpdate {
 
         Address updatedAddress = Address.builder()
                 .aid(1) // 수정할 주소의 ID
-                .aname("김영수") // 수정된 이름
-                .address("서울시 서초구")
+                .aname("이태빈") // 수정된 이름
+                .address("아산시 탕정면")
                 .addressDetail("빌라 303호")
                 .zipCode("543210")
                 .phone("01099998888")

@@ -11,7 +11,7 @@ public class ProductSelectPublicByCidCategoryId {
 
         try {
             // 카테고리별 공개된 상품 조회
-            int categoryId = 1; // 조회할 카테고리 ID
+            int categoryId = 13; // 조회할 카테고리 ID
             System.out.println("=====================================");
             System.out.println("   [ 카테고리 ID " + categoryId + "에 해당하는 공개된 상품 목록 ]   ");
             System.out.println("=====================================");
@@ -33,7 +33,7 @@ public class ProductSelectPublicByCidCategoryId {
             }
 
             // 상품명으로 공개된 상품 조회
-            String productName = "스마트폰"; // 조회할 상품명
+            String productName = "닌텐"; // 조회할 상품명
             System.out.println("\n=====================================");
             System.out.println("   [ '" + productName + "'으로 검색된 공개된 상품 목록 ]   ");
             System.out.println("=====================================");

@@ -10,7 +10,7 @@ public class ProductInsert {
 
             // 새로운 상품 생성
             Product product = Product.builder()
-                    .categoryId(18)
+                    .categoryId(15)
                     .disId(4)
                     .pname("닌텐도")
                     .price(500000)

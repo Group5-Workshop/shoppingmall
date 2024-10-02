@@ -10,7 +10,7 @@ public class ProductSelectByPname {
         ProductService productService = new ProductService();
 
         try {
-            String searchName = "닌"; // 조회할 상품명 (부분 일치)
+            String searchName = "DI"; // 조회할 상품명 (부분 일치)
             List<Product> products = productService.getByName(searchName);
 
             // 상품명으로 조회된 결과 출력
